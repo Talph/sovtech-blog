@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('category_name')->nullable();
             $table->string('category_description')->nullable();
             $table->string('slug')->unique();
-            $table->unsignedInteger('created_by')->nullable()->index()->comment('user id');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
