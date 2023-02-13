@@ -1,4 +1,4 @@
-# Basic Shop functionality
+# Basic Blog functionality
 This was done as a Job interview assessment.
 
 # Features
