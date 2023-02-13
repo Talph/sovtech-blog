@@ -15,8 +15,8 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+import HomeComponent from './components/Front/HomeComponent.vue';
+app.component('home-component', HomeComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -25,6 +25,44 @@ app.component('example-component', ExampleComponent);
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
+
+// Frontend
+import IndexPostsComponent from './components/Front/Posts/IndexComponent.vue';
+app.component('index-front-component', IndexPostsComponent);
+
+import ShowPostsComponent from './components/Front/Posts/ShowComponent.vue';
+app.component('index-front-component', ShowPostsComponent);
+
+// Backend
+
+import DashboardComponent from './components/Dashboard/DashboardComponent.vue';
+app.component('dashboard-component', DashboardComponent);
+
+import IndexComponent from './components/Dashboard/Posts/IndexComponent.vue';
+app.component('index-front-component', IndexComponent);
+
+import ShowComponent from './components/Dashboard/Posts/ShowComponent.vue';
+app.component('index-front-component', ShowComponent);
+
+import CreateComponent from './components/Dashboard/Posts/CreateComponent.vue';
+app.component('index-front-component', CreateComponent);
+
+import EditPostsComponent from './components/Dashboard/Posts/EditComponent.vue';
+app.component('index-front-component', EditPostsComponent);
+
+import IndexCategoryComponent from './components/Dashboard/Category/IndexComponent.vue';
+app.component('index-category-component', IndexCategoryComponent);
+
+import ShowCategoryComponent from './components/Dashboard/Category/ShowComponent.vue';
+app.component('show-category-component', ShowCategoryComponent);
+
+import IndexUserComponent from './components/Dashboard/Users/IndexComponent.vue';
+app.component('index-front-component', IndexUserComponent);
+
+import ShowUserComponent from './components/Dashboard/Users/ShowComponent.vue';
+app.component('show-user-component', ShowUserComponent);
+
+
 
 // Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
 //     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
