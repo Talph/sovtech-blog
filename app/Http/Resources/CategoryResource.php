@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
-class PostResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,7 @@ class PostResource extends JsonResource
      * @param  Request  $request
      * @return array|Arrayable|JsonSerializable
      */
-    public function toArray($request): array|JsonSerializable|Arrayable
+    public function toArray($request)
     {
         return parent::toArray($request);
     }
