@@ -1,5 +1,4 @@
 <template>
-    <banner-component></banner-component>
     <div>
         <section class="my-1">
             <div class="container">
@@ -32,10 +31,8 @@
 </template>
 
 <script>
-import BannerComponent from "./Partials/bannerComponent.vue";
 
 export default {
-    components: {BannerComponent},
     data() {
         return {
             posts: {},

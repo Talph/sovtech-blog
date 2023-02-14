@@ -11,7 +11,7 @@
                             <div class="col-lg-12">
                                 <div class="p-2">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Register to our Blog!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome! Register to our Blog!</h1>
                                     </div>
                                     @include('partials.alert')
                                     <form method="POST" action="{{ route('register') }}">
@@ -20,13 +20,9 @@
                                             <div class="col-md-6">
                                                 <small>First name:</small>
                                                 <label class="sr-only" for="name">{{ __('First name') }}</label>
-                                                <div class="input-group mb-2 mr-sm-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text bg-white border-right-0"><i
-                                                                class="far fa-user"></i></div>
-                                                    </div>
+                                                <div class="mb-2 mr-sm-2">
                                                     <input id="name" type="text" placeholder="John"
-                                                           class="form-control  border-left-0 @error('name') is-invalid @enderror"
+                                                           class="form-control  @error('name') is-invalid @enderror"
                                                            name="name" value="{{ old('name') }}" required autocomplete="name"
                                                            autofocus>
                                                 </div>
@@ -41,13 +37,9 @@
                                             <div class="col-md-6">
                                                 <small>Surname:</small>
                                                 <label class="sr-only" for="surname">{{ __('Surname') }}</label>
-                                                <div class="input-group mb-2 mr-sm-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text bg-white border-right-0"><i
-                                                                class="far fa-user"></i></div>
-                                                    </div>
+                                                <div class="mb-2 mr-sm-2">
                                                     <input id="surname" type="text" placeholder="Doe"
-                                                           class="form-control  border-left-0 @error('surname') is-invalid @enderror"
+                                                           class="form-control  @error('surname') is-invalid @enderror"
                                                            name="surname" value="{{ old('surname') }}" required autocomplete="surname"
                                                            autofocus>
                                                 </div>
@@ -67,13 +59,9 @@
                                             <div class="col-md-12">
                                                 <small>Email address:</small>
                                                 <label class="sr-only" for="email">{{ __('E-Mail Address') }}</label>
-                                                <div class="input-group mb-2 mr-sm-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text bg-white border-right-0"><i
-                                                                class="far fa-envelope"></i></div>
-                                                    </div>
+                                                <div class="mb-2 mr-sm-2">
                                                     <input id="email" type="email" placeholder="john@shanda.com"
-                                                           class="form-control border-left-0 @error('email') is-invalid @enderror"
+                                                           class="form-control @error('email') is-invalid @enderror"
                                                            name="email" value="{{ old('email') }}" required autocomplete="email">
                                                 </div>
 
@@ -92,13 +80,9 @@
                                             <div class="col-md-6">
                                                 <small>Password:</small>
                                                 <label class="sr-only" for="password">{{ __('Password') }}</label>
-                                                <div class="input-group mb-2 mr-sm-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text bg-white border-right-0"><i
-                                                                class="fas fa-key"></i></div>
-                                                    </div>
+                                                <div class="mb-2 mr-sm-2">
                                                     <input id="password" type="password" placeholder="********"
-                                                           class="form-control border-left-0  @error('password') is-invalid @enderror"
+                                                           class="form-control  @error('password') is-invalid @enderror"
                                                            name="password" required autocomplete="new-password">
                                                 </div>
 
@@ -112,13 +96,9 @@
                                                 <small>Confirm password:</small>
                                                 <label class="sr-only"
                                                        for="password-confirm">{{ __('Confirm Password') }}</label>
-                                                <div class="input-group mb-2 mr-sm-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text bg-white border-right-0"><i
-                                                                class="fas fa-key"></i></div>
-                                                    </div>
+                                                <div class="mb-2 mr-sm-2">
                                                     <input id="password-confirm" type="password" placeholder="********"
-                                                           class="form-control border-left-0" name="password_confirmation" required
+                                                           class="form-control" name="password_confirmation" required
                                                            autocomplete="new-password">
                                                 </div>
 

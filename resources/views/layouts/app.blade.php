@@ -18,12 +18,8 @@
 </head>
 <body>
 <div id="app">
-{{--    @if(\Request::route()->getName() == 'welcome' || \Request::route()->getName() == 'login' || \Request::route()->getName() == 'register')--}}
-{{--        <div class="bg-hero-image menu-banner pt-3">--}}
-{{--        @else--}}
-{{--         <div class="bg-hero-image menu-banner pt-3">--}}
-{{--    @endif--}}
-    <div class="bg-hero-image menu-banner pt-3">
+    <div>
+    <div class="menu-banner">
         <nav class="navbar navbar-expand-md navbar-dark py-4">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -53,7 +49,8 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link btn btn-success" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link btn btn-success"
+                                       href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -80,11 +77,11 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
     </div>
+    </div>
+    <main class="py-4">
+        @yield('content')
+    </main>
 </div>
 </body>
 

@@ -1,5 +1,5 @@
 <template>
-    <section class="hero pt-5">
+    <section class="hero pt-3">
         <div class="container bg-image-hero">
             <div class="row">
                 <div class="col-md-10">
