@@ -31,7 +31,10 @@ import IndexPostsComponent from './components/Front/Posts/IndexComponent.vue';
 app.component('index-front-component', IndexPostsComponent);
 
 import ShowPostsComponent from './components/Front/Posts/ShowComponent.vue';
-app.component('index-front-component', ShowPostsComponent);
+app.component('show-posts-component', ShowPostsComponent);
+
+import bannerComponent from './components/Front/Partials/bannerComponent.vue';
+app.component('banner-component', bannerComponent);
 
 // Backend
 
@@ -39,16 +42,16 @@ import DashboardComponent from './components/Dashboard/DashboardComponent.vue';
 app.component('dashboard-component', DashboardComponent);
 
 import IndexComponent from './components/Dashboard/Posts/IndexComponent.vue';
-app.component('index-front-component', IndexComponent);
+app.component('index-dashboard-posts-component', IndexComponent);
 
 import ShowComponent from './components/Dashboard/Posts/ShowComponent.vue';
-app.component('index-front-component', ShowComponent);
+app.component('show-posts-dashboard-component', ShowComponent);
 
 import CreateComponent from './components/Dashboard/Posts/CreateComponent.vue';
-app.component('index-front-component', CreateComponent);
+app.component('create-posts-component', CreateComponent);
 
 import EditPostsComponent from './components/Dashboard/Posts/EditComponent.vue';
-app.component('index-front-component', EditPostsComponent);
+app.component('edit-posts-component', EditPostsComponent);
 
 import IndexCategoryComponent from './components/Dashboard/Category/IndexComponent.vue';
 app.component('index-category-component', IndexCategoryComponent);
@@ -57,7 +60,7 @@ import ShowCategoryComponent from './components/Dashboard/Category/ShowComponent
 app.component('show-category-component', ShowCategoryComponent);
 
 import IndexUserComponent from './components/Dashboard/Users/IndexComponent.vue';
-app.component('index-front-component', IndexUserComponent);
+app.component('index-user-component', IndexUserComponent);
 
 import ShowUserComponent from './components/Dashboard/Users/ShowComponent.vue';
 app.component('show-user-component', ShowUserComponent);
