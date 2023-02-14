@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
@@ -9,9 +9,6 @@ use App\Http\Resources\PostResource;
 use App\Http\Services\PostService;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -21,25 +18,21 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
+     * @return AnonymousResourceCollection
      */
-    public function index(): Application|Factory|View
+    public function index(): AnonymousResourceCollection
     {
-        return view('dashboard.posts.index', [
-            'posts' => PostResource::collection(Post::query()->with('relatedUser')->get())
-        ]);
+        return PostResource::collection(Post::all());
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View
+     * @return CategoryResource
      */
-    public function create(): Application|Factory|View
+    public function create(): CategoryResource
     {
-        return view('dashboard.posts.create', [
-            'categories' => CategoryResource::collection(Category::query()->get())
-        ]);
+       return new CategoryResource(Category::query()->get());
     }
 
     /**
