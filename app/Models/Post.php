@@ -33,4 +33,9 @@ class Post extends Model
     {
         return $this->relatedCategories()->get();
     }
+
+    public function isPublished()
+    {
+        return $this->is_published === 1;
+    }
 }
