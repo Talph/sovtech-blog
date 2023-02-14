@@ -1,10 +1,12 @@
-
-.bg-hero-image {
+.menu-banner, .bg-hero-image {
     background: url("https://sovtech-blog.test/img/png/web-banner.webp") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+.bg-hero-image {
     min-height: 40em;
 }
 
