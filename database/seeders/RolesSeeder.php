@@ -12,7 +12,7 @@ class RolesSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $roles = array(
             array('id' => '1', 'name' => 'Admin', 'slug' => 'admin'),

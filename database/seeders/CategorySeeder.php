@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class CategorySeeder extends Seeder
 {
@@ -13,19 +12,16 @@ class CategorySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $admin = array(
-            array(
-                'id' => '1',
-                'name' => 'Tafara Shamu',
-                'username' => 'talph',
-                'email' => 'admin@admin.com',
-                'password' => Hash::make('password')
-            )
+        $categories = array(
+            array('id' => '1', 'name' => 'Technology', 'description' => 'Technology', 'slug' => 'technology'),
+            array( 'id' => '2', 'name' => 'General', 'description' => 'General', 'slug' => 'general'),
+            array('id' => '3', 'name' => 'Software Development', 'description' => 'Software Development', 'slug' => 'software-development'),
+            array('id' => '4', 'name' => 'News', 'description' => 'News', 'slug' => 'news')
         );
 
-        DB::table('users')->insert($admin);
+        DB::table('categories')->insert($categories);
 
     }
 }
