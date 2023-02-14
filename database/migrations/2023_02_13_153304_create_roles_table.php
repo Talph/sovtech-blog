@@ -20,16 +20,6 @@ return new class extends Migration
             $table->string('slug');
             $table->timestamps();
         });
-
-        $roles = array(
-            array('id' => '1', 'name' => 'Admin', 'slug' => 'admin'),
-            array('id' => '2', 'name' => 'Manager', 'slug' => 'manager'),
-            array('id' => '3', 'name' => 'Editor', 'slug' => 'editor'),
-            array('id' => '4', 'name' => 'user', 'slug' => 'user')
-
-        );
-
-        DB::table('roles')->insert($roles);
     }
 
     /**

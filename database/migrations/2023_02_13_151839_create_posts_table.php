@@ -21,9 +21,8 @@ return new class extends Migration
             $table->string('subtitle')->nullable();
             $table->text('meta_desc')->nullable();
             $table->string('seo_keywords')->nullable();
-            $table->text('short_description')->nullable();
-            $table->mediumText('post_body')->nullable();
-            $table->dateTime('posted_at')->index()->nullable()->comment('Posted time, if this is in future then blog will not appear yet');
+            $table->text('content')->nullable();
+            $table->dateTime('posted_at')->index()->nullable()->comment('Posted time, if in future blog will become public then');
             $table->boolean('is_published')->default(false);
             $table->string('slug')->unique();
             $table->timestamps();
