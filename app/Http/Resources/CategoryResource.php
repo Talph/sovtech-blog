@@ -13,10 +13,15 @@ class CategoryResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  Request  $request
-     * @return array|Arrayable|JsonSerializable
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'createdAt' => $this->created_at
+        ];
     }
 }

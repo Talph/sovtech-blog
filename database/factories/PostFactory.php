@@ -20,24 +20,19 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $title = rtrim($this->faker->sentence(random_int(5,10)), '.');
-        $slug = str::slug($title);
-        $postBody = collect($this->faker->paragraphs(random_int(3,7), true))
-            ->map(static fn($item) => $item)->toArray();
-
-        $postBody = implode($postBody);
-
+        $title = $this->faker->words(6, true);
         return [
+            'user_id' => 1,
             'title' => $title,
-            'slug' => $slug,
-            'post_body' => $postBody,
-            'sub_title' => $title,
-            'short_description' => trim($postBody, 65),
-            'met_desc' => trim($postBody, 65),
+            'subtitle' => $this->faker->words(4, true),
+            'meta_desc' => $this->faker->sentence(15),
+            'seo_keywords' => $this->faker->words(3, true),
+            'content' => $this->faker->sentence(150),
             'posted_at' => now(),
+            'is_published' => (bool) random_int(0,1),
+            'slug' => str::slug($title),
             'created_at' => now(),
             'updated_at' => now(),
-            'is_published' => (bool) random_int(0,1),
         ];
     }
 

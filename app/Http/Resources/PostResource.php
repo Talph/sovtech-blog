@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,6 +18,18 @@ class PostResource extends JsonResource
      */
     public function toArray($request): array|JsonSerializable|Arrayable
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'author' => UserResource::collection($this->getRelatedUser()),
+            'title' => ucfirst($this->title),
+            'subtitle' => ucfirst($this->subtitle),
+            'metaDesc' => $this->meta_desc,
+            'seoKeywords' => $this->seo_keywords,
+            'content' => $this->content,
+            'postedAt' => Carbon::parse($this->posted_at)->toDateString(),
+            'slug' => '/posts/' . $this->slug,
+            'images' => '/img/png/graduate.webp',
+            'relatedCategories' => CategoryResource::collection($this->getRelatedCategories())
+        ];
     }
 }
