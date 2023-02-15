@@ -71,11 +71,13 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Post $post
-     * @return PostResource
+     * @return Application|Factory|View
      */
-    public function edit(Post $post): PostResource
+    public function edit(Post $post): Application|Factory|View
     {
-        return new PostResource($post);
+        return view('dashboard.posts.edit', [
+            'post' => new PostResource($post)
+        ]);
     }
 
     /**

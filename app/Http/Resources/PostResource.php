@@ -28,6 +28,7 @@ class PostResource extends JsonResource
             'content' => $this->content,
             'postedAt' => Carbon::parse($this->posted_at)->toDateString(),
             'slug' => '/posts/' . $this->slug,
+            'isPublished' => $this->isPublished() ? 'Published' : 'Draft',
             'images' => '/img/png/graduate.webp',
             'relatedCategories' => CategoryResource::collection($this->getRelatedCategories())
         ];

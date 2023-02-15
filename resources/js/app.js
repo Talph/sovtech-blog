@@ -44,8 +44,8 @@ app.component('dashboard-component', DashboardComponent);
 import IndexComponent from './components/Dashboard/Posts/IndexComponent.vue';
 app.component('index-dashboard-posts-component', IndexComponent);
 
-import ShowComponent from './components/Dashboard/Posts/ShowComponent.vue';
-app.component('show-posts-dashboard-component', ShowComponent);
+import FooterComponent from './components/Dashboard/Partials/FooterComponent.vue';
+app.component('footer-component', FooterComponent);
 
 import CreateComponent from './components/Dashboard/Posts/CreateComponent.vue';
 app.component('create-posts-component', CreateComponent);
@@ -56,16 +56,11 @@ app.component('edit-posts-component', EditPostsComponent);
 import IndexCategoryComponent from './components/Dashboard/Category/IndexComponent.vue';
 app.component('index-category-component', IndexCategoryComponent);
 
-import ShowCategoryComponent from './components/Dashboard/Category/ShowComponent.vue';
-app.component('show-category-component', ShowCategoryComponent);
+import EditCategoryComponent from './components/Dashboard/Category/EditComponent.vue';
+app.component('edit-category-component', EditCategoryComponent);
 
-import IndexUserComponent from './components/Dashboard/Users/IndexComponent.vue';
-app.component('index-user-component', IndexUserComponent);
-
-import ShowUserComponent from './components/Dashboard/Users/ShowComponent.vue';
-app.component('show-user-component', ShowUserComponent);
-
-
+import SideBarMenuComponent from "./components/Dashboard/Partials/SideBarMenuComponent.vue";
+app.component('side-bar-menu-component', SideBarMenuComponent);
 
 // Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
 //     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);

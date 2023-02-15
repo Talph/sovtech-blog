@@ -12,7 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=space-grotesk" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -20,8 +20,10 @@
     <div id="app">
         <!-- Page Wrapper -->
         <div id="wrapper">
+
             <!-- Side Bar Menu -->
-            @include('partials.sidebarMenu')
+            <side-bar-menu-component app="{{config("app.name")}}">
+            </side-bar-menu-component>
 
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
@@ -32,34 +34,15 @@
                     @yield('content')
                 </div>
 
-                @include('partials.footer')
+                <footer-component></footer-component>
             </div>
         </div>
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/dash.min.js') }}"></script>
-
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-    @yield('scripts')
-
-    <script type="text/javascript">
-        $(document).ready( function () {
-              $('#dataTable').DataTable();
-            } );
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#J_name').keyup(function(e){
-            var str = $('#J_name').val();
-            str = str.replace(/\W+(?!$)/g, '-').toLowerCase();
-            $('#J_slug').val(str);
-            $('#J_slug').attr('placeholder', str);
-        });
-    });
-    </script>
+    <script src="{{ asset('/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
 </body>
 
