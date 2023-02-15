@@ -22,7 +22,7 @@
                                                 <label class="sr-only" for="name">{{ __('First name') }}</label>
                                                 <div class="mb-2 mr-sm-2">
                                                     <input id="name" type="text" placeholder="John"
-                                                           class="form-control  @error('name') is-invalid @enderror"
+                                                           class="form-control form-control-user @error('name') is-invalid @enderror"
                                                            name="name" value="{{ old('name') }}" required autocomplete="name"
                                                            autofocus>
                                                 </div>
@@ -39,7 +39,7 @@
                                                 <label class="sr-only" for="surname">{{ __('Surname') }}</label>
                                                 <div class="mb-2 mr-sm-2">
                                                     <input id="surname" type="text" placeholder="Doe"
-                                                           class="form-control  @error('surname') is-invalid @enderror"
+                                                           class="form-control form-control-user @error('surname') is-invalid @enderror"
                                                            name="surname" value="{{ old('surname') }}" required autocomplete="surname"
                                                            autofocus>
                                                 </div>
@@ -61,7 +61,7 @@
                                                 <label class="sr-only" for="email">{{ __('E-Mail Address') }}</label>
                                                 <div class="mb-2 mr-sm-2">
                                                     <input id="email" type="email" placeholder="john@shanda.com"
-                                                           class="form-control @error('email') is-invalid @enderror"
+                                                           class="form-control form-control-user @error('email') is-invalid @enderror"
                                                            name="email" value="{{ old('email') }}" required autocomplete="email">
                                                 </div>
 
@@ -82,7 +82,7 @@
                                                 <label class="sr-only" for="password">{{ __('Password') }}</label>
                                                 <div class="mb-2 mr-sm-2">
                                                     <input id="password" type="password" placeholder="********"
-                                                           class="form-control  @error('password') is-invalid @enderror"
+                                                           class="form-control form-control-user @error('password') is-invalid @enderror"
                                                            name="password" required autocomplete="new-password">
                                                 </div>
 
@@ -98,7 +98,7 @@
                                                        for="password-confirm">{{ __('Confirm Password') }}</label>
                                                 <div class="mb-2 mr-sm-2">
                                                     <input id="password-confirm" type="password" placeholder="********"
-                                                           class="form-control" name="password_confirmation" required
+                                                           class="form-control form-control-user" name="password_confirmation" required
                                                            autocomplete="new-password">
                                                 </div>
 

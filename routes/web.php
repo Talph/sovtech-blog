@@ -28,20 +28,13 @@ Auth::routes();
 Route::get('/home', [DashboardController::class, 'index'])->name('home');
 
 Route::middleware('auth')->prefix('dashboard')->group(function () {
-    Route::get('posts/create', [PostController::class, 'create'])->name('create.posts');
     Route::get('posts', [PostController::class, 'index'])->name('get.posts');
-    Route::get('posts/{post}', [PostController::class, 'edit'])->name('edit.posts');
+    Route::get('posts/create', [PostController::class, 'create'])->name('create.posts');
+    Route::get('posts/edit/{post}', [PostController::class, 'edit'])->name('edit.posts');
 
     Route::get('categories', [CategoryController::class, 'index'])->name('get.categories');
-    Route::get('categories/{category}', [CategoryController::class, 'edit'])->name('edit.categories');
     Route::get('categories/create', [CategoryController::class, 'create'])->name('create.categories');
-
-    Route::get('users', [UserController::class, 'index'])->name('get.users');
-    Route::get('users/{user}', [UserController::class, 'edit'])->name('edit.users');
-    Route::get('users/create', [UserController::class, 'create'])->name('create.users');
-
-    Route::get('roles', [RoleController::class, 'index'])->name('get.roles');
-
+    Route::get('categories/edit/{category}', [CategoryController::class, 'edit'])->name('edit.categories');
 });
 
 Route::get('/posts/{post:slug}', [BlogController::class, 'show'])->name('blog.show');

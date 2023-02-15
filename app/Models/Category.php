@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
@@ -14,15 +16,15 @@ class Category extends Model
 
     public function relatedPosts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'blog_posts_blog_categories');
+        return $this->belongsToMany(Post::class, 'posts_categories');
     }
 
-    public function relatedUser()
+    public function relatedUser(): HasMany
     {
-        return $this->hasMany(User::class, 'user_id')->withTrashed();
+        return $this->hasMany(User::class, 'user_id');
     }
 
-    public function getRelatedUser()
+    public function getRelatedUser(): Collection
     {
         return $this->relateduser()->get();
     }

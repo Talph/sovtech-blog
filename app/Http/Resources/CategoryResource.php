@@ -20,6 +20,8 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
+            'numberOfPosts' => count($this->relatedPosts()->get()),
             'slug' => $this->slug,
             'createdAt' => $this->created_at
         ];
