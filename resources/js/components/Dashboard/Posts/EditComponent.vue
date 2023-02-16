@@ -154,6 +154,7 @@ export default {
     data() {
         return {
             form: {
+                messages: {},
                 'title': '',
                 'subtitle': '',
                 'meta_desc': '',
@@ -161,19 +162,31 @@ export default {
                 'content': '',
                 'posted_at': '',
                 'is_published': '',
-                'category_id': []
+                'category_id': [],
             }
         }
     },
     mounted() {
-
+        this.form.title = this.post.title;
+        this.form.subtitle = this.post.subtitle;
+        this.form.meta_desc = this.post.meta_desc;
+        this.form.seo_keywords = this.post.seo_keywords;
+        this.form.content = this.post.content;
+        this.form.posted_at = this.post.posted_at;
+        this.form.category_id = this.post.category_id;
     },
     methods: {
         async submit(){
-            await axios.post('/api/posts/update',{
-
+            await axios.post('/api/posts/update' + this.post.slug,{
+                title: this.form.title,
+                subtitle: this.form.subtitle,
+                meta_desc: this.form.meta_desc,
+                seo_keywords: this.form.seo_keywords,
+                posted_at: this.form.posted_at,
+                is_published: this.form.is_published,
+                category_id: this.form.category_id
             }.then(response => {
-                this.posts = response.data.data;
+                this.messages = response.data.data;
             }).catch(error => {
                 console.log(error)
             }));
