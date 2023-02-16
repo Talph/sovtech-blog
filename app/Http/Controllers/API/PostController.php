@@ -22,7 +22,17 @@ class PostController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return PostResource::collection(Post::all());
+        return PostResource::collection(Post::query()->where('is_published', 1)->get());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function all(): AnonymousResourceCollection
+    {
+        return PostResource::collection(Post::query()->get());
     }
 
     /**

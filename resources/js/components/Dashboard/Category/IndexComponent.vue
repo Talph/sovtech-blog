@@ -7,9 +7,9 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <form @submit.prevent="submit" method="POST">
                         <div class="card">
-                            <span v-if="err_message" v-for="errors in err_message">{{errors}}</span>
                             <div class="card-header">
-                                Create category</div>
+                                Create category
+                            </div>
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label>Category Name</label>
@@ -21,7 +21,8 @@
                                     <label>Description</label>
                                     <textarea class="form-control" id="summernote" v-model="form.description" rows="9"
                                               required> </textarea>
-                                    <small>The description is not prominent by default; however, some themes may show it.</small>
+                                    <small>The description is not prominent by default; however, some themes may show
+                                        it.</small>
                                 </div>
                                 <button class="btn btn-block btn-success" type="submit">Save Category</button>
                             </div>
@@ -31,16 +32,17 @@
                 <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
                     <div class="card">
                         <div class="card-header">
-                            Categories</div>
+                            Categories
+                        </div>
                         <div class="card-body">
                             <br>
-                            <table class="table table-responsive-sm table-bordered table-hover" id="dataTable" width="100%"
+                            <table class="table table-responsive-sm table-bordered table-hover" id="dataTable"
+                                   width="100%"
                                    cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th>Category Name</th>
                                     <th>Description</th>
-                                    <th>Slug</th>
                                     <th>Post count</th>
                                     <th></th>
                                 </tr>
@@ -49,13 +51,13 @@
                                 <tr v-for="(category, index) in categories" :key="index">
                                     <td>{{ category.name }}</td>
                                     <td>{{ category.description }}</td>
-                                    <td>{{ category.slug }}</td>
                                     <td>
-                                        {{category.numberOfPosts}}
+                                        {{ category.numberOfPosts }}
                                     </td>
                                     <td>
                                         <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLinkRevenue"
+                                            <a class="dropdown-toggle" href="#" role="button"
+                                               id="dropdownMenuLinkRevenue"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                                aria-label="Revenue action button">
                                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -63,9 +65,10 @@
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                  aria-labelledby="dropdownMenuLinkRevenue">
                                                 <div class="dropdown-header">Actions:</div>
-                                                <a :href="'/dashboard/categories/edit/' + category.id" class="btn dropdown-item">Edit</a>
+                                                <a :href="'/dashboard/categories/edit/' + category.id"
+                                                   class="btn dropdown-item">Edit</a>
                                                 <div class="dropdown-divider"></div>
-                                                <form @submit.prevent="submit" action="#" method="POST">
+                                                <form @submit.prevent="deletePost(category.id)">
                                                     <button class="btn dropdown-item text-danger">Delete</button>
                                                 </form>
                                             </div>
@@ -93,7 +96,7 @@ export default {
                 'description': '',
             },
             categories: {},
-            err_message: {},
+            messages: '',
             savingDone: false,
             loading: true
         }
@@ -109,18 +112,32 @@ export default {
                 })
                 .catch(error => {
                     console.log(error.message)
-                    this.err_message = error.message
-                    });
+                    this.messages = error.message
+                });
             this.loading = false;
         },
-        async submit() {
-            await axios.post('/api/categories',this.form).then(response => {
-                this.messages = response.data.data.message;
-                this.savingDone = true;
-            }).catch(error => {
+        submit() {
+            let self = this;
+            axios.post('/api/categories', this.form)
+                .then(response => {
+                    self.messages = response.data.data;
+                    this.loadCategories();
+                }).catch(error => {
+                self.messages = error;
                 console.log(error)
             });
-        }
+        },
+        deletePost(id) {
+            let self = this;
+            axios.delete('/api/categories/' + id)
+                .then(response => {
+                    self.messages = response.data.data;
+                    this.loadCategories();
+                })
+                .catch(error => self.messages = error
+                );
+            this.loading = false;
+        },
     }
 }
 </script>

@@ -57,7 +57,7 @@
                                                 <div class="dropdown-header">Actions:</div>
                                                 <a :href="'/dashboard/posts/edit/' + post.id " class="btn dropdown-item">Edit</a>
                                                 <div class="dropdown-divider"></div>
-                                                <form @submit.prevent="submit" action="#" method="POST">
+                                                <form @submit.prevent="deletePost(post.id)">
                                                     <button class="btn dropdown-item text-danger">Delete</button>
                                                 </form>
                                             </div>
@@ -100,9 +100,19 @@ export default {
     },
     methods: {
         loadPosts() {
-            axios.get('/api/posts')
+            axios.get('/api/posts/all')
                 .then(response => {
                     this.posts = response.data.data;
+                })
+                .catch(error => console.log(error)
+                );
+            this.loading = false;
+        },
+        deletePost(id) {
+            axios.delete('/api/posts/' + id)
+                .then(response => {
+                    this.posts = response.data.data;
+                    this.loadPosts();
                 })
                 .catch(error => console.log(error)
                 );

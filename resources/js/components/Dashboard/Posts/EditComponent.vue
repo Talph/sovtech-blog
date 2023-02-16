@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="animated fadeIn">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Written Posts </h1>
+            <h1 class="h3 mb-2 text-gray-800">Edit Post</h1>
             <div class="createProduct my-4">
                 <a class="btn btn-primary" href="/dashboard/posts/create">Create New Post</a>
             </div>
@@ -36,7 +36,8 @@
                                     <div class="form-group row">
                                         <div class="col">
                                             <label>Content</label>
-                                            <textarea class="form-control" id="summernote" v-model="form.content" rows="9"
+                                            <textarea class="form-control" id="summernote" v-model="form.content"
+                                                      rows="9"
                                                       placeholder="Content.."
                                                       required> {{ post.content }}</textarea>
                                         </div>
@@ -54,7 +55,8 @@
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <label>Meta description</label>
-                                        <textarea class="form-control" id="textarea-meta_desc" v-model="form.meta_desc" rows="4"
+                                        <textarea class="form-control" id="textarea-meta_desc" v-model="form.meta_desc"
+                                                  rows="4"
                                                   placeholder="description.." required>{{post.metaDesc}}</textarea>
                                         <small>A maximum of 160 characters are recommended</small>
                                     </div>
@@ -73,7 +75,7 @@
                                         <label>Target keywords</label>
                                         <input type="text" class="form-control" v-model="form.seo_keywords"
                                                placeholder="keywords..." required
-                                                />
+                                        />
                                         <small>Separate keywords with a comma eg 'Best shop, Shoes'</small>
                                     </div>
                                 </div>
@@ -91,7 +93,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Post status</label>
-                                        <select class="form-control" v-model="form.is_published">
+                                        <select v-model="form.is_published" class="form-control">
                                             <option value="0">Draft</option>
                                             <option selected value="1">Publish</option>
                                         </select>
@@ -112,10 +114,10 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Publish date</label>
-                                        <input type="date" class="form-control" v-model="form.posted_at" />
+                                        <input type="date" class="form-control" v-model="form.posted_at"/>
                                     </div>
-                                    Posted on: {{post.createdAt}}
-                                    Edited on: {{post.updatedAt}}
+                                    Posted on: {{ post.createdAt }}
+                                    Edited on: {{ post.updatedAt }}
                                 </div>
                             </div>
                         </div>
@@ -130,11 +132,12 @@
                                     <div class="form-group">
                                         <div class="col">
                                             <label>Category</label>
-                                            <br />
-                                            <span v-for="(category, index) in post.relatedCategories" :key="index">
-                                                <input v-model="form.category_id" :data-role-id="category.id" :data-role-slug="category.slug">
-                                                <label>{{ category.name }}</label>
-                                                <br />
+                                            <br/>
+                                            <span v-for="(category, index) in this.categories" :key="index">
+                                                <label>
+                                                <input type="checkbox" :checked="false" v-model="form.category_id">
+                                                {{ category.name }}</label>
+                                                <br/>
                                             </span>
                                         </div>
                                     </div>
@@ -153,8 +156,9 @@ export default {
     props: ['post'],
     data() {
         return {
+            messages: {},
+            categories: {},
             form: {
-                messages: {},
                 'title': '',
                 'subtitle': '',
                 'meta_desc': '',
@@ -169,15 +173,17 @@ export default {
     mounted() {
         this.form.title = this.post.title;
         this.form.subtitle = this.post.subtitle;
-        this.form.meta_desc = this.post.meta_desc;
-        this.form.seo_keywords = this.post.seo_keywords;
+        this.form.meta_desc = this.post.metaDesc;
+        this.form.seo_keywords = this.post.seoKeywords;
         this.form.content = this.post.content;
-        this.form.posted_at = this.post.posted_at;
-        this.form.category_id = this.post.category_id;
+        this.form.posted_at = this.post.postedAt;
+        this.form.category_id = this.categoryID;
+        this.form.is_published = this.post.isPublished;
+        this.loadCategories();
     },
     methods: {
-        async submit(){
-            await axios.post('/api/posts/update' + this.post.slug,{
+        async submit() {
+            await axios.post('/api/posts/' + this.post.id, {
                 title: this.form.title,
                 subtitle: this.form.subtitle,
                 meta_desc: this.form.meta_desc,
@@ -185,11 +191,22 @@ export default {
                 posted_at: this.form.posted_at,
                 is_published: this.form.is_published,
                 category_id: this.form.category_id
-            }.then(response => {
+            }).then(response => {
                 this.messages = response.data.data;
             }).catch(error => {
                 console.log(error)
-            }));
+            });
+        },
+        loadCategories() {
+            axios.get('/api/categories')
+                .then(response => {
+                    this.categories = response.data.data;
+                })
+                .catch(error => {
+                    console.log(error.message)
+                    this.messages = error.message
+                });
+            this.loading = false;
         }
     }
 }

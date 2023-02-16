@@ -12,6 +12,6 @@ class CategoryController extends Controller
 {
     public function show(Category $category): Factory|View|Application
     {
-        return view('frontend.categories.show', ['category' => new CategoryResource($category->with('relatedPosts'))]);
+        return view('frontend.categories.show', ['category' => new CategoryResource($category)]);
     }
 }

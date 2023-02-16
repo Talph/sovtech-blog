@@ -18,6 +18,7 @@ class CategoryService
                 'id' => $category->id
             ], [
                 'name' => $request->get('name'),
+                'description' => $request->get('description'),
                 'slug' => $this->slugify($category, $request->get('name'))
             ]);
         });

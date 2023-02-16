@@ -21,7 +21,7 @@
                                         <label>Category Name</label>
                                         <input class="form-control" type="text"
                                                placeholder="Name"
-                                               v-model="category_name" required
+                                               v-model="form.name" required
                                                autofocus>
                                     </div>
                                 </div>
@@ -29,9 +29,9 @@
                                 <div class="form-group row">
                                     <div class="col">
                                         <label>Description</label>
-                                        <textarea class="form-control" id="textarea-input" v-model="category_description"
+                                        <textarea class="form-control" id="textarea-input" v-model="form.description"
                                                   rows="9" placeholder="Description..."
-                                                  required> {{ category.description }}</textarea>
+                                                  required> </textarea>
                                     </div>
                                 </div>
 
@@ -52,8 +52,10 @@ export default {
     props: ['category'],
     data() {
       return {
-          'name': '',
-          'description': '',
+          form:{
+              'name': '',
+              'description': '',
+          },
           'messages': {},
           savingDone: false,
       }
@@ -64,7 +66,7 @@ export default {
     },
     methods: {
         async submit(){
-            await axios.post('/api/categories/update/' + this.category.slug,{
+            await axios.put('/api/categories/' + this.category.id,{
                 id: this.category.id,
                 name: this.form.name,
                 description: this.form.description,

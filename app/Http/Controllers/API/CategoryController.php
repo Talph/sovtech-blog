@@ -79,9 +79,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, CategoryService $postService, int $id): JsonResponse
     {
+
         $update = $postService->create(Category::query()->findOrFail($id), $request);
 
-        return response()->json(['message' => $update ? 'Updated category successfully!' : 'An error occurred, category could not be updated']);
+        return response()->json(['message' => !$update ? 'Updated category successfully!' : 'An error occurred, category could not be updated']);
     }
 
     /**

@@ -22,8 +22,8 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'numberOfPosts' => count($this->relatedPosts()->get()),
-            'posts' => PostResource::collection($this->whenLoaded('relatedPosts')),
-            'slug' => $this->slug,
+            'posts' => $this->relatedPosts()->where('is_published', 1)->get(),
+            'slug' => '/categories/' . $this->slug,
             'createdAt' => $this->created_at
         ];
     }
