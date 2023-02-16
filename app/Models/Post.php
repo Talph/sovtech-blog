@@ -14,6 +14,18 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'title',
+        'subtitle',
+        'meta_desc',
+        'seo_keywords',
+        'content',
+        'posted_at',
+        'is_published',
+        'slug'
+    ];
+
     public function relatedUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
