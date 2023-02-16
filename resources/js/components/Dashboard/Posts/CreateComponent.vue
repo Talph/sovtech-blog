@@ -121,7 +121,7 @@
                                         </span>
                                         <span v-else>
                                         <label for="category">No categories</label><br/>
-                                        <a href="btn" data-toggle="modal" data-target="#createModal">Create category</a>
+                                        <a href="#" data-toggle="modal" data-target="#createModal">Create category</a>
                                         </span>
                                     </div>
                                 </div>
@@ -198,7 +198,7 @@ export default {
         },
         async submit() {
             await axios.post('/api/posts',this.form).then(response => {
-                this.messages = response.data.data.message;
+                this.messages = response.data.data;
                 this.savingDone = true;
             }).catch(error => {
                 console.log(error)

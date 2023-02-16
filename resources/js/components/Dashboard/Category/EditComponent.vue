@@ -52,20 +52,28 @@ export default {
     props: ['category'],
     data() {
       return {
+          'name': '',
+          'description': '',
           'messages': {},
+          savingDone: false,
       }
     },
     mounted() {
-        console.log('Component mounted.')
+        this.form.name = this.category.name;
+        this.form.description = this.category.description;
     },
     methods: {
         async submit(){
-            await axios.post('/api/categories/update',{
-            }.then(response => {
-                this.posts = response.data.data;
+            await axios.post('/api/categories/update/' + this.category.slug,{
+                id: this.category.id,
+                name: this.form.name,
+                description: this.form.description,
+            }).then(response => {
+                this.messages = response.data.data;
+                this.savingDone = true;
             }).catch(error => {
                 console.log(error)
-            }));
+            });
         }
     }
 }
