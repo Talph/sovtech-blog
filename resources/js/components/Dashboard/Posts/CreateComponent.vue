@@ -6,7 +6,7 @@
             <div class="createProduct my-4">
                 <a class="btn btn-primary" href=/dashboard/posts>View Posts</a>
             </div>
-            <form id="postCreate" enctype="multipart/form-data" method="POST">
+            <form @submit.prevent="submit" id="postCreate" enctype="multipart/form-data" method="POST">
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
                         <div class="card card-collapsable">
@@ -19,17 +19,17 @@
                                     <div class="form-group row">
                                         <label>Title</label>
                                         <input class="form-control" type="text" id="J_name" placeholder="Title"
-                                               name="title" required autofocus>
+                                               v-model="form.title" required autofocus>
                                     </div>
                                     <div class="form-group row">
                                         <label>Subtitle</label>
                                         <input class="form-control" type="text" placeholder="Subtitle"
-                                               name="subtitle" required autofocus>
+                                               v-model="form.subtitle" required autofocus>
                                     </div>
 
                                     <div class="form-group row">
                                         <label>Content</label>
-                                        <textarea class="form-control" id="summernote" name="content" rows="9"
+                                        <textarea class="form-control" id="summernote" v-model="form.content" rows="9"
                                                   required> </textarea>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
 
                                 <div class="card-body px-5">
                                     <div class="form-group row">
-                                    <textarea class="form-control" id="textarea-meta_desc" name="meta_desc" rows="4"
+                                    <textarea class="form-control" id="textarea-meta_desc" v-model="form.meta_desc" rows="4"
                                               placeholder="Meta description.."
                                               required></textarea>
                                         <small>A maximum of 160 characters are recommended</small>
@@ -62,7 +62,8 @@
                             <div class="collapse show" id="collapseCardKeyword">
                                 <div class="card-body px-5">
                                     <div class="form-group row">
-                                        <input type="text" class="form-control" name="seo_keywords" rows="4"
+                                        <input type="text" hidden class="hidden" :name="form.user_id" :value="auth.id">
+                                        <input type="text" class="form-control" v-model="form.seo_keywords"
                                                placeholder="Target keywords..." required/>
                                         <small>Separate keywords with a comma eg 'Best shop, Shoes'</small>
                                     </div>
@@ -82,7 +83,7 @@
                                 <div class="card-body px-5">
                                     <div class="form-group">
                                         <label>Post status</label>
-                                        <select class="form-control" name="is_published">
+                                        <select class="form-control" v-model="form.is_published">
                                             <option selected value="0">Draft</option>
                                             <option value="1">Publish</option>
                                             <option value="2">Send for approval</option>
@@ -91,11 +92,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Publish date</label>
-                                        <input type="date" class="form-control" name="posted_at"/>
+                                        <input type="date" class="form-control" v-model="form.posted_at"/>
                                     </div>
-                                    <button class="btn btn-block btn-success" type="submit">Save</button>
+                                    <button v-if="!savingDone" class="btn btn-block btn-primary" type="submit">Save</button>
+                                    <span v-if="savingDone" class="btn btn-success" disabled="">{{messages}}</span>
                                     <a href="/dashboard/posts"
-                                       class="btn btn-block btn-primary">Return</a>
+                                       class="btn btn-block btn-secondary">Return</a>
                                 </div>
                             </div>
                         </div>
@@ -112,8 +114,9 @@
                                         <br/>
                                         <span v-if="categories">
                                             <span v-for="(category, index) in categories" :key="index">
-                                             <input  type="checkbox" name="category_id[]" value="{{ category.id }}">
-                                                <label> {{category.name }} </label><br/>
+                                                <label>
+                                             <input  type="checkbox" v-model="form.category_id" :value="category.id">
+                                                 {{category.name }} </label><br/>
                                             </span>
                                         </span>
                                         <span v-else>
@@ -142,15 +145,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" id="categoryCreate" onclick="this.createPost()">
-                        <label>Category Name</label>
-                        <input class="form-control" type="text" id="J_name" placeholder="Category Name"
-                               name="category_name" required autofocus>
-                        <small>The name is how it appears on your site.</small>
-                        <br/>
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Create</a>
-                    </form>
+<!--                    <form @submit.prevent="submit" method="POST" id="categoryCreate" onclick="this.createPost()">-->
+<!--                        <label>Category Name</label>-->
+<!--                        <input class="form-control" type="text" id="J_name" placeholder="Category Name"-->
+<!--                               v-model="category_name" required autofocus>-->
+<!--                        <small>The name is how it appears on your site.</small>-->
+<!--                        <br/>-->
+<!--                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>-->
+<!--                        <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Create</a>-->
+<!--                    </form>-->
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -161,14 +164,27 @@
 
 <script>
 export default {
+    props: ['auth'],
     data(){
         return {
-            posts: {},
+            form: {
+                'user_id': '',
+                'title': '',
+                'subtitle': '',
+                'meta_desc': '',
+                'seo_keywords': '',
+                'content': '',
+                'posted_at': '',
+                'is_published': '',
+                'category_id': []
+            },
+            messages : '',
             categories: {},
-            loading: true,
+            savingDone: false,
         }
     },
     mounted() {
+        this.form.user_id = this.auth.id
         this.loadCategories();
     },
     methods: {
@@ -179,16 +195,14 @@ export default {
                 })
                 .catch(error => console.log(error)
                 );
-            this.loading = false;
         },
-        createPost() {
-            axios.post('/api/posts/create', {
-
-            }.then(response => {
-                this.posts = response.data.data;
+        async submit() {
+            await axios.post('/api/posts',this.form).then(response => {
+                this.messages = response.data.data.message;
+                this.savingDone = true;
             }).catch(error => {
                 console.log(error)
-            }));
+            });
         }
     }
 }

@@ -28,11 +28,11 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return CategoryResource
+     * @return AnonymousResourceCollection
      */
-    public function create(): CategoryResource
+    public function create(): AnonymousResourceCollection
     {
-       return new CategoryResource(Category::query()->get());
+       return CategoryResource::collection(Category::query()->get());
     }
 
     /**
@@ -40,13 +40,13 @@ class PostController extends Controller
      *
      * @param StorePostRequest $request
      * @param PostService $postService
-     * @return PostResource
+     * @return JsonResponse
      */
-    public function store(StorePostRequest $request, PostService $postService): PostResource
+    public function store(Request $request, PostService $postService): JsonResponse
     {
-        $post = $postService->create(new Post, $request);
+        $postService->create(new Post, $request);
 
-        return new PostResource($post);
+        return response()->json(['message' => 'Created a post successfully!']);
     }
 
     /**
