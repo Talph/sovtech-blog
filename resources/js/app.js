@@ -33,6 +33,9 @@ app.component('index-front-component', IndexPostsComponent);
 import ShowPostsComponent from './components/Front/Posts/ShowComponent.vue';
 app.component('show-posts-component', ShowPostsComponent);
 
+import ShowCategoryComponent from './components/Front/Categories/ShowComponent.vue';
+app.component('show-category-component', ShowCategoryComponent);
+
 import bannerComponent from './components/Front/Partials/bannerComponent.vue';
 app.component('banner-component', bannerComponent);
 
