@@ -24,9 +24,9 @@ Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
 Auth::routes();
 
-Route::get('/home', [DashboardController::class, 'index'])->name('home');
 
 Route::middleware('auth')->prefix('dashboard')->group(function () {
+    Route::get('/home', [DashboardController::class, 'index'])->name('home');
     Route::get('posts', [PostController::class, 'index'])->name('get.posts');
     Route::get('posts/create', [PostController::class, 'create'])->name('create.posts');
     Route::get('posts/edit/{post}', [PostController::class, 'edit'])->name('edit.posts');
@@ -37,4 +37,4 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 });
 
 Route::get('/posts/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
-Route::get('/categories/{category:slug}', [BlogCategoryController::class, 'show'])->name('blog.show');
+Route::get('/categories/{category:slug}', [BlogCategoryController::class, 'show'])->name('blog.category.show');
