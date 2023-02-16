@@ -57,7 +57,7 @@
                                                 <div class="dropdown-header">Actions:</div>
                                                 <a :href="'/dashboard/posts/edit/' + post.id " class="btn dropdown-item">Edit</a>
                                                 <div class="dropdown-divider"></div>
-                                                <form action="#" method="POST">
+                                                <form @submit.prevent="submit" action="#" method="POST">
                                                     <button class="btn dropdown-item text-danger">Delete</button>
                                                 </form>
                                             </div>
