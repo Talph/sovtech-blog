@@ -6,7 +6,7 @@
             <div class="createProduct my-4">
                 <a class="btn btn-primary" href=/dashboard/categories/create>Create New Category</a>
             </div>
-            <form method="POST" id="categoryEdit">
+            <form @submit.prevent="submit" method="POST" id="categoryEdit">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div class="card">
@@ -20,7 +20,7 @@
                                         <label>Category Name</label>
                                         <input class="form-control" type="text"
                                                placeholder="Name"
-                                               name="category_name" :value="category.name" required
+                                               v-model="category_name" required
                                                autofocus>
                                     </div>
                                 </div>
@@ -29,15 +29,15 @@
                                     <div class="col">
                                         <label>Subtitle</label>
                                         <input class="form-control" id="J_slug" type="text"
-                                               placeholder="category-slug" name="slug"
-                                               :value="category.slug" required autofocus>
+                                               placeholder="category-slug" v-model="slug"
+                                               required autofocus>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="col">
                                         <label>Description</label>
-                                        <textarea class="form-control" id="textarea-input" name="category_description"
+                                        <textarea class="form-control" id="textarea-input" v-model="category_description"
                                                   rows="9" placeholder="Description..."
                                                   required> {{ category.description }}</textarea>
                                     </div>
@@ -60,6 +60,16 @@ export default {
     props: ['category'],
     mounted() {
         console.log('Component mounted.')
+    },
+    methods: {
+        async submit(){
+            await axios.post('/api/categories/update',{
+            }.then(response => {
+                this.posts = response.data.data;
+            }).catch(error => {
+                console.log(error)
+            }));
+        }
     }
 }
 </script>

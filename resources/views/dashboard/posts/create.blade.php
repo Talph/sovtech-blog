@@ -2,7 +2,7 @@
 
 @section('content')
 
-<create-posts-component></create-posts-component>
+<create-posts-component :auth='@json(auth()->user())'></create-posts-component>
 
 @endsection
 
