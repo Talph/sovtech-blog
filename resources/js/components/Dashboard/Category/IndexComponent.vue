@@ -4,29 +4,22 @@
             <!-- Page Heading -->
             <h1 class="h3 mb-2 text-gray-800">Categories </h1>
             <div class="row">
-
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <form method="POST" action="#">
+                    <form @submit.prevent="submit" method="POST">
                         <div class="card">
+                            <span v-if="err_message" v-for="errors in err_message">{{errors}}</span>
                             <div class="card-header">
                                 Create category</div>
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label>Category Name</label>
                                     <input class="form-control" type="text" id="J_name" placeholder="Category Name"
-                                           name="category_name" required autofocus>
+                                           v-model="form.name" required autofocus>
                                     <small>The name is how it appears on your site.</small>
                                 </div>
                                 <div class="form-group row">
-                                    <label>Slug</label>
-                                    <input class="form-control" id="J_slug" type="text" placeholder="category-name" disabled
-                                           name="slug" required autofocus>
-                                    <small>The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only
-                                        letters, numbers, and hyphens.</small>
-                                </div>
-                                <div class="form-group row">
                                     <label>Description</label>
-                                    <textarea class="form-control" id="summernote" name="category_description" rows="9"
+                                    <textarea class="form-control" id="summernote" v-model="form.description" rows="9"
                                               required> </textarea>
                                     <small>The description is not prominent by default; however, some themes may show it.</small>
                                 </div>
@@ -72,14 +65,13 @@
                                                 <div class="dropdown-header">Actions:</div>
                                                 <a :href="'/dashboard/categories/edit/' + category.id" class="btn dropdown-item">Edit</a>
                                                 <div class="dropdown-divider"></div>
-                                                <form action="#" method="POST">
+                                                <form @submit.prevent="submit" action="#" method="POST">
                                                     <button class="btn dropdown-item text-danger">Delete</button>
                                                 </form>
                                             </div>
                                         </div>
 
                                     </td>
-
                                 </tr>
                                 </tbody>
                             </table>
@@ -96,8 +88,12 @@ export default {
     props: ['auth'],
     data() {
         return {
+            form: {
+                'name': '',
+                'description': '',
+            },
             categories: {},
-            err_message: "",
+            err_message: {},
             loading: true
         }
     },
@@ -110,9 +106,14 @@ export default {
                 .then(response => {
                     this.categories = response.data.data;
                 })
-                .catch(error => console.log(error)
-                );
+                .catch(error => {
+                    console.log(error.message)
+                    this.err_message = error.message
+                    });
             this.loading = false;
+        },
+        async submit() {
+            this.$emit('submit', this.form)
         }
     }
 }

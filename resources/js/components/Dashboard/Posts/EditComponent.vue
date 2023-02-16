@@ -6,7 +6,7 @@
             <div class="createProduct my-4">
                 <a class="btn btn-primary" href="/dashboard/posts/create">Create New Post</a>
             </div>
-            <form method="POST" enctype="multipart/form-data" id="editPost">
+            <form @submit.prevent="submit" method="POST" enctype="multipart/form-data" id="editPost">
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
                         <div class="card card-collapsable">
@@ -21,7 +21,7 @@
                                         <div class="col">
                                             <label>Title</label>
                                             <input class="form-control" type="text" placeholder="Title"
-                                                   name="title" :value="post.title" required autofocus>
+                                                   v-model="form.title" required autofocus>
                                         </div>
                                     </div>
 
@@ -29,14 +29,14 @@
                                         <div class="col">
                                             <label>Subtitle</label>
                                             <input class="form-control" type="text" placeholder="Subtitle"
-                                                   name="subtitle" :value="post.subtitle" required autofocus>
+                                                   v-model="form.subtitle" required autofocus>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col">
                                             <label>Content</label>
-                                            <textarea class="form-control" id="summernote" name="post_body" rows="9"
+                                            <textarea class="form-control" id="summernote" v-model="form.content" rows="9"
                                                       placeholder="Content.."
                                                       required> {{ post.content }}</textarea>
                                         </div>
@@ -54,7 +54,7 @@
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <label>Meta description</label>
-                                        <textarea class="form-control" id="textarea-meta_desc" name="meta_desc" rows="4"
+                                        <textarea class="form-control" id="textarea-meta_desc" v-model="form.meta_desc" rows="4"
                                                   placeholder="description.." required>{{post.metaDesc}}</textarea>
                                         <small>A maximum of 160 characters are recommended</small>
                                     </div>
@@ -71,9 +71,9 @@
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <label>Target keywords</label>
-                                        <input type="text" class="form-control" name="seo_keywords"
+                                        <input type="text" class="form-control" v-model="form.seo_keywords"
                                                placeholder="keywords..." required
-                                               :value="post.seoKeywords" />
+                                                />
                                         <small>Separate keywords with a comma eg 'Best shop, Shoes'</small>
                                     </div>
                                 </div>
@@ -88,23 +88,20 @@
                                 Publish
                             </a>
                             <div class="collapse show" id="collapseCardPublish">
-
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Post status</label>
-                                        <select class="form-control" name="is_published">
+                                        <select class="form-control" v-model="form.is_published">
                                             <option value="0">Draft</option>
                                             <option selected value="1">Publish</option>
                                         </select>
                                     </div>
-
                                     <button class="btn btn-block btn-success" type="submit">Save</button>
                                     <a href="/dashboard/posts"
                                        class="btn btn-block btn-primary">Return</a>
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="card mt-4 card-collapsable">
                             <a class="card-header" href="#collapseCardDate" data-toggle="collapse" role="button"
@@ -115,7 +112,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Publish date</label>
-                                        <input type="date" class="form-control" name="posted_at" />
+                                        <input type="date" class="form-control" v-model="form.posted_at" />
                                     </div>
                                     Posted on: {{post.createdAt}}
                                     Edited on: {{post.updatedAt}}
@@ -134,14 +131,11 @@
                                         <div class="col">
                                             <label>Category</label>
                                             <br />
-
                                             <span v-for="(category, index) in post.relatedCategories" :key="index">
-                                                <input :data-role-id="category.id" :data-role-slug="category.slug"
-                                                       :value="category.id">
+                                                <input v-model="form.category_id" :data-role-id="category.id" :data-role-slug="category.slug">
                                                 <label>{{ category.name }}</label>
                                                 <br />
                                             </span>
-
                                         </div>
                                     </div>
                                 </div>
@@ -157,8 +151,33 @@
 <script>
 export default {
     props: ['post'],
+    data() {
+        return {
+            form: {
+                'title': '',
+                'subtitle': '',
+                'meta_desc': '',
+                'seo_keywords': '',
+                'content': '',
+                'posted_at': '',
+                'is_published': '',
+                'category_id': []
+            }
+        }
+    },
     mounted() {
 
+    },
+    methods: {
+        async submit(){
+            await axios.post('/api/posts/update',{
+
+            }.then(response => {
+                this.posts = response.data.data;
+            }).catch(error => {
+                console.log(error)
+            }));
+        }
     }
 }
 </script>
