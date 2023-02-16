@@ -94,6 +94,7 @@ export default {
             },
             categories: {},
             err_message: {},
+            savingDone: false,
             loading: true
         }
     },
@@ -113,7 +114,12 @@ export default {
             this.loading = false;
         },
         async submit() {
-            this.$emit('submit', this.form)
+            await axios.post('/api/categories',this.form).then(response => {
+                this.messages = response.data.data.message;
+                this.savingDone = true;
+            }).catch(error => {
+                console.log(error)
+            });
         }
     }
 }

@@ -10,6 +10,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div class="card">
+                            <p v-if="messages" v-for="message in messages">{{message}}</p>
                             <div class="card-header">
                                 Edit : {{ category.name }}
                             </div>
@@ -22,15 +23,6 @@
                                                placeholder="Name"
                                                v-model="category_name" required
                                                autofocus>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col">
-                                        <label>Subtitle</label>
-                                        <input class="form-control" id="J_slug" type="text"
-                                               placeholder="category-slug" v-model="slug"
-                                               required autofocus>
                                     </div>
                                 </div>
 
@@ -58,6 +50,11 @@
 <script>
 export default {
     props: ['category'],
+    data() {
+      return {
+          'messages': {},
+      }
+    },
     mounted() {
         console.log('Component mounted.')
     },

@@ -38,13 +38,13 @@ class CategoryController extends Controller
      *
      * @param StoreCategoryRequest $request
      * @param CategoryService $postService
-     * @return CategoryResource
+     * @return JsonResponse
      */
-    public function store(StoreCategoryRequest $request, CategoryService $postService): CategoryResource
+    public function store(StoreCategoryRequest $request, CategoryService $postService): JsonResponse
     {
-        $post = $postService->create(new Category, $request);
+        $postService->create(new Category, $request);
 
-        return new CategoryResource($post);
+        return response()->json(['message' => 'Created a category successfully!']);
     }
 
     /**
@@ -75,13 +75,13 @@ class CategoryController extends Controller
      * @param Request $request
      * @param CategoryService $postService
      * @param int $id
-     * @return CategoryResource
+     * @return JsonResponse
      */
-    public function update(Request $request, CategoryService $postService, int $id): CategoryResource
+    public function update(Request $request, CategoryService $postService, int $id): JsonResponse
     {
-        $post = $postService->create(Category::findOrFail($id), $request);
+        $update = $postService->create(Category::query()->findOrFail($id), $request);
 
-        return new CategoryResource($post);
+        return response()->json(['message' => $update ? 'Updated category successfully!' : 'An error occurred, category could not be updated']);
     }
 
     /**
